@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Small Gift, Huge Impact | charity: water</title>
+  <meta name="description" content="See how a small monthly donation can help bring clean water and lasting change." />
+
+  <style>
+    :root {
+      --background: #f1f1f1;
+      --sky: #7daec7;
+      --navy: #003b73;
+      --ink: #0f243b;
+      --yellow: #f7c948;
+      --yellow-hover: #e7b936;
+      --muted: #4a6177;
+      --card: #ffffff;
+      --radius: 0.5rem;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      background-color: var(--background);
+      color: var(--navy);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.5;
+    }
+    img { display: block; max-width: 100%; }
+    h1, h2, h3 { margin: 0; }
+
+    .container {
+      max-width: 80rem;
+      margin: 0 auto;
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+    }
+
+    .btn {
+      display: inline-block;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 700;
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 0.6rem 1.4rem;
+      font-size: 0.9rem;
+      transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--navy);
+      border: 2px solid var(--navy);
+    }
+    .btn-ink {
+      background: var(--ink);
+      color: #fff;
+    }
+    .btn-donate {
+      background: var(--yellow);
+      color: var(--ink);
+      border-radius: var(--radius);
+      padding: 0.75rem 1.4rem;
+    }
+    .btn-donate:hover { background: var(--yellow-hover); }
+    .btn-hero {
+      padding: 1.1rem 1.6rem;
+      font-size: 1.05rem;
+      border-radius: 0.25rem;
+      text-align: center;
+      width: 100%;
+      font-style: normal;
+      font-weight: 800;
+      font-size: 1.1rem;
+    }
+
+    .hero {
+      background-color: var(--sky);
+    }
+
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-top: 1.5rem;
+      padding-bottom: 1.5rem;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+    }
+    .brand-logo {
+      display: block;
+      width: 220px;
+      height: auto;
+      max-height: 54px;
+      object-fit: contain;
+      filter: brightness(0) saturate(100%) invert(8%) sepia(14%) saturate(1550%) hue-rotate(185deg) brightness(103%) contrast(105%);
+    }
+
+    .main-nav { display: none; gap: 1.75rem; font-size: 1.05rem; font-weight: 500; }
+    .main-nav a { color: var(--navy); text-decoration: none; }
+    .main-nav a:hover { opacity: 0.6; }
+
+    .header-actions { display: none; gap: 0.75rem; }
+
+    .menu-toggle {
+      display: inline-flex;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--navy);
+      padding: 0.25rem;
+    }
+    .menu-toggle svg { width: 1.5rem; height: 1.5rem; }
+
+    .mobile-nav { display: none; border-top: 1px solid rgba(19, 31, 43, 0.2); padding: 1rem 0; }
+    .mobile-nav.open { display: block; }
+    .mobile-nav a { display: block; padding: 0.4rem 0; color: var(--navy); text-decoration: none; font-weight: 500; }
+
+    .hero-grid {
+      display: grid;
+      gap: 2.5rem;
+      padding-top: 2rem;
+      align-items: end;
+    }
+
+    .hero-title {
+      font-size: clamp(3.2rem, 7vw, 6rem);
+      font-weight: 900;
+      line-height: 0.93;
+      color: var(--navy);
+      letter-spacing: -0.06em;
+      text-align: center;
+    }
+
+    .hero-subtitle {
+      margin-top: 1.5rem;
+      font-size: 1.1rem;
+      color: var(--navy);
+      max-width: 42rem;
+      line-height: 1.45;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
+
+    .donate-block {
+      margin: 2rem auto 0;
+      max-width: 42rem;
+      text-align: center;
+    }
+
+    .monthly-row {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      text-align: left;
+    }
+    .monthly-label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      color: var(--navy);
+    }
+    .amount-buttons {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      flex: 1;
+    }
+    .amount-buttons .btn-donate { border-radius: 999px; padding: 0.6rem 1rem; text-align: center; }
+    .amount-buttons .btn-donate.selected {
+      outline: 2px solid var(--ink);
+      outline-offset: 2px;
+    }
+
+    .testimonial {
+      margin: 2rem auto 3rem;
+      max-width: 36rem;
+      background: rgba(255, 255, 255, 0.75);
+      border-radius: 2rem;
+      padding: 1.25rem 1.5rem;
+      font-size: 0.95rem;
+      text-align: center;
+    }
+    .testimonial blockquote { margin: 0; }
+    .testimonial figcaption { margin-top: 0.5rem; font-weight: 700; }
+    .testimonial figcaption span { font-weight: 400; color: var(--muted); }
+
+    .hero-photo {
+      width: 100%;
+      max-width: 32rem;
+      margin: 0 auto;
+      border-radius: 11rem 11rem 0 0;
+      overflow: hidden;
+    }
+    .hero-photo img {
+      width: 100%;
+      height: 100%;
+      min-height: 32.5rem;
+      object-fit: cover;
+    }
+
+    .story {
+      background: var(--card);
+      padding: 5rem 0;
+    }
+    .story-grid { display: grid; gap: 2.5rem; }
+    .eyebrow {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--navy);
+      margin: 0;
+    }
+    .story h2 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      line-height: 1.15;
+      max-width: 48rem;
+    }
+    .story p {
+      margin: 1.5rem 0 0;
+      max-width: 42rem;
+      font-size: 1.1rem;
+      color: var(--muted);
+    }
+
+    .cta {
+      background: var(--ink);
+      color: #fff;
+      padding: 5rem 0;
+    }
+    .cta-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2rem;
+    }
+    .cta h2 { font-size: clamp(1.75rem, 4vw, 2.25rem); }
+    .cta p { margin: 0.75rem 0 0; max-width: 36rem; font-size: 1.1rem; color: rgba(255, 255, 255, 0.7); }
+    .cta-heart { color: var(--yellow); width: 2rem; height: 2rem; margin-bottom: 1.25rem; }
+
+    @media (min-width: 640px) {
+      .header-actions { display: flex; }
+      .monthly-row { flex-direction: row; align-items: center; }
+    }
+
+    @media (min-width: 1024px) {
+      .main-nav { display: flex; }
+      .menu-toggle { display: none; }
+      .mobile-nav { display: none !important; }
+      .hero-grid { grid-template-columns: 1fr; padding-top: 3.5rem; }
+      .hero-photo { max-width: 32rem; }
+      .story-grid { grid-template-columns: 0.75fr 1.25fr; }
+      .cta-inner {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .btn-hero { width: auto; white-space: nowrap; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <div class="container">
+        <header class="site-header">
+          <a href="#home" class="logo" aria-label="charity: water home">
+            <img
+              src="charitywater_logo_horizontal_AllWhite.png"
+              alt="charity: water logo"
+              class="brand-logo"
+            />
+          </a>
+
+          <nav class="main-nav" aria-label="Main navigation">
+            <a href="#home">Home</a>
+            <a href="#give">Take Action</a>
+            <a href="#story">Why Water?</a>
+            <a href="#about">About</a>
+          </nav>
+
+          <div class="header-actions">
+            <a href="#about" class="btn btn-outline">Sign In</a>
+            <a href="#give" class="btn btn-ink">Give</a>
+          </div>
+
+          <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false" onclick="toggleMenu(this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <line x1="4" y1="6" x2="20" y2="6"></line>
+              <line x1="4" y1="12" x2="20" y2="12"></line>
+              <line x1="4" y1="18" x2="20" y2="18"></line>
+            </svg>
+          </button>
+        </header>
+
+        <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+          <a href="#home">Home</a>
+          <a href="#give">Take Action</a>
+          <a href="#story">Why Water?</a>
+          <a href="#about">About</a>
+        </nav>
+      </div>
+
+      <div class="container hero-grid" id="home">
+        <div>
+          <h1 class="hero-title">SMALL GIFT<br />HUGE IMPACT</h1>
+          <p class="hero-subtitle">
+            See how your $5–$15 donation can bring clean water and change real lives.
+          </p>
+
+          <div class="donate-block" id="give">
+            <a href="#donate" class="btn btn-donate btn-hero" id="donate-cta">
+              Create a lasting impact: give $10 now
+            </a>
+            <div class="monthly-row">
+              <span class="monthly-label">Give monthly:</span>
+              <div class="amount-buttons" aria-label="Choose a monthly donation amount">
+                <button class="btn btn-donate" data-amount="5" aria-pressed="false">$5</button>
+                <button class="btn btn-donate selected" data-amount="10" aria-pressed="true">$10</button>
+                <button class="btn btn-donate" data-amount="15" aria-pressed="false">$15</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="hero-photo">
+          <img
+            src="https://cdn2.dropmarkusercontent.com/52043/a0ee6da6d6c0b14400f8c80618aebb6265ff6908bd0562e881adcb5420af230e/charity_water_Tanzania_TaraShupePhotography_0074.jpg?Expires=1789597750&Signature=TIqSIvWVhewFerj-UA4PeJEfjKc8NhSn5OozmF~SdK8p7TCFrQZMV99gdEh1PyPCRIxjoWnurgWTacIZcLkeNYNjFR-nmfYy0R0ybNSb7Kv3GeEbnwT6lbSDD285JpFkdSS6VbMA6V9W49Xkd2HF0yBrUJszIDzz9osliQq8YNQGAKtzJrVTt7M7ts~yyKvM5OWhGx~SRevrMabYnOP3~kC4Gxtlnaa-FGdy1sZf~G~jksAkPGyOliCd6bSJ1-K5PmgzWoopumpNTgUpimyJG9Dr0uiobNLueIBm~-6pBaX-LYzh2iCCHmViGY5QjuBdB-zxV9Elo5b2lxGkV1CTkg__&Key-Pair-Id=APKAITQYWVEN757ZA4KQ"
+            alt="A smiling child enjoying fresh water from a tap"
+            width="1024"
+            height="1280"
+            loading="lazy"
+          />
+        </div>
+
+        <figure class="testimonial">
+          <blockquote>
+            &ldquo;Knowing I can do something as small as give $5 monthly and know it is going to help give real people a real solution to their problems is awesome.&rdquo;
+          </blockquote>
+          <figcaption>Hudson Mills <span>— monthly donor</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="story" id="story">
+      <div class="container story-grid">
+        <p class="eyebrow">Why water?</p>
+        <div>
+          <h2>Clean water changes everything.</h2>
+          <p>
+            Reliable water means more time for school, safer communities, and healthier futures.
+            Monthly gifts help fund sustainable projects built to last.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta" id="about">
+      <div class="container cta-inner">
+        <div>
+          <svg class="cta-heart" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 21s-7.5-4.9-10-9.2C.4 8.6 2 5 5.5 5c2 0 3.4 1.1 4.2 2.3h4.6C15.1 6.1 16.5 5 18.5 5 22 5 23.6 8.6 22 11.8 19.5 16.1 12 21 12 21Z"/>
+          </svg>
+          <h2>Make your small gift count.</h2>
+          <p>Join a community committed to clean water, month after month.</p>
+        </div>
+        <button class="btn btn-donate btn-hero" id="donate" onclick="confirmDonation()">
+          Give $10 monthly
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    let selectedAmount = 10;
+
+    document.querySelectorAll(".amount-buttons .btn-donate").forEach(function (button) {
+      button.addEventListener("click", function () {
+        selectedAmount = Number(button.dataset.amount);
+
+        document.querySelectorAll(".amount-buttons .btn-donate").forEach(function (other) {
+          other.classList.toggle("selected", other === button);
+          other.setAttribute("aria-pressed", other === button ? "true" : "false");
+        });
+
+        document.getElementById("donate-cta").textContent =
+          "Create a lasting impact: give $" + selectedAmount + " now";
+        document.getElementById("donate").textContent = "Give $" + selectedAmount + " monthly";
+      });
+    });
+
+    function confirmDonation() {
+      alert("Thank you for choosing a $" + selectedAmount + " monthly gift!");
+    }
+
+    function toggleMenu(button) {
+      var menu = document.getElementById("mobile-nav");
+      var open = menu.classList.toggle("open");
+      button.setAttribute("aria-expanded", open ? "true" : "false");
+    }
+
+    document.querySelectorAll("#mobile-nav a").forEach(function (link) {
+      link.addEventListener("click", function () {
+        document.getElementById("mobile-nav").classList.remove("open");
+        document.querySelector(".menu-toggle").setAttribute("aria-expanded", "false");
+      });
+    });
+  </script>
+</body>
+</html>
